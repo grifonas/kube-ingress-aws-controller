@@ -188,7 +188,7 @@ func TestFindingManagedStacks(t *testing.T) {
 							Tags: []*cloudformation.Tag{
 								cfTag(kubernetesCreatorTag, kubernetesCreatorValue),
 								cfTag(clusterIDTagPrefix+"test-cluster", resourceLifecycleOwned),
-								cfTag(certificateARNTag, "cert-arn"),
+								cfTag(certificateARNsTag, "cert-arn"),
 							},
 							Outputs: []*cloudformation.Output{
 								{OutputKey: aws.String(outputLoadBalancerDNSName), OutputValue: aws.String("example-notready.com")},
@@ -201,7 +201,7 @@ func TestFindingManagedStacks(t *testing.T) {
 							Tags: []*cloudformation.Tag{
 								cfTag(kubernetesCreatorTag, kubernetesCreatorValue),
 								cfTag(clusterIDTagPrefix+"test-cluster", resourceLifecycleOwned),
-								cfTag(certificateARNTag, "cert-arn"),
+								cfTag(certificateARNsTag, "cert-arn"),
 							},
 							Outputs: []*cloudformation.Output{
 								{OutputKey: aws.String(outputLoadBalancerDNSName), OutputValue: aws.String("example.com")},
@@ -239,14 +239,14 @@ func TestFindingManagedStacks(t *testing.T) {
 			},
 			[]*Stack{
 				{
-					name:           "managed-stack",
-					dnsName:        "example.com",
-					certificateARN: "cert-arn",
-					targetGroupARN: "tg-arn",
+					name:            "managed-stack",
+					dnsName:         "example.com",
+					CertificateARNs: []string{"cert-arn"},
+					targetGroupARN:  "tg-arn",
 					tags: map[string]string{
 						kubernetesCreatorTag:                kubernetesCreatorValue,
 						clusterIDTagPrefix + "test-cluster": resourceLifecycleOwned,
-						certificateARNTag:                   "cert-arn",
+						certificateARNsTag:                  "cert-arn",
 					},
 				},
 			},
